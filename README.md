@@ -22,7 +22,7 @@ Mission: create a `GET` endpoint which return `"this is a test"`.
 2. You can obviously return Reactive types.
 
 Mission: create a `GET` endpoint which takes a `String` request parameter
-`name` and returns `"Hello, " + name + "!"`.
+`name` and returns a `Mono that emits ``"Hello, " + name + "!"`.
 
 2. With the use of `Mono.never()`, we can see that the reactive type not
 only controls the HTTP response body, but also when that response is
