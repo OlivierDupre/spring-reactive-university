@@ -28,7 +28,8 @@ public class GitterClient {
 
     public Flux<GitterUser> getUsersInRoom(String roomId, int limit) {
         return this.webClient
-                .get().uri("https://api.gitter.im/v1/rooms/{roomId}/users?limit={limit}", roomId, limit)
+                .get()
+                .uri("https://api.gitter.im/v1/rooms/{roomId}/users?limit={limit}", roomId, limit)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flux()
@@ -41,7 +42,9 @@ public class GitterClient {
                 .uri("https://api.gitter.im/v1/rooms/{roomId}/users?q={userName}", roomId, userName)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .then(response -> response.bodyToMono(GitterUser.class));
+                .flux()
+                .flatMap(response -> response.bodyToFlux(GitterUser.class))
+                .singleOrEmpty();
     }
 
     public Flux<GitterMessage> latestChatMessages(String roomId, int limit) {
