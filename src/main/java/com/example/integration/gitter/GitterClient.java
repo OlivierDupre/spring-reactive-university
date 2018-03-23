@@ -31,6 +31,7 @@ public class GitterClient {
                 .get().uri("https://api.gitter.im/v1/rooms/{roomId}/users?limit={limit}", roomId, limit)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
+                .flux()
                 .flatMap(response -> response.bodyToFlux(GitterUser.class));
     }
 
@@ -49,6 +50,7 @@ public class GitterClient {
                 .uri("https://api.gitter.im/v1/rooms/{roomId}/chatMessages?limit={limit}", roomId, limit)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
+                .flux()
                 .flatMap(response -> response.bodyToFlux(GitterMessage.class));
     }
 
@@ -58,6 +60,7 @@ public class GitterClient {
                 .uri("https://stream.gitter.im/v1/rooms/{roomId}/chatMessages", roomId)
                 .accept(MediaType.TEXT_EVENT_STREAM)
                 .exchange()
+                .flux()
                 .flatMap(response -> response.bodyToFlux(GitterMessage.class));
     }
 
