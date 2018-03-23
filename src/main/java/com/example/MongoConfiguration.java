@@ -20,25 +20,25 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @EnableReactiveMongoRepositories
 public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 
-	private MongoProperties mongoProperties;
+    private final MongoProperties mongoProperties;
 
-	@Autowired
-	public MongoConfiguration(MongoProperties mongoProperties) {
-		this.mongoProperties = mongoProperties;
-	}
+    @Autowired
+    public MongoConfiguration(MongoProperties mongoProperties) {
+        this.mongoProperties = mongoProperties;
+    }
 
-	@Bean
-	ObjectMapper objectMapper() {
-		return Jackson2ObjectMapperBuilder.json().build();
-	}
+    @Bean
+    ObjectMapper objectMapper() {
+        return Jackson2ObjectMapperBuilder.json().build();
+    }
 
-	@Override
-	public MongoClient mongoClient() {
-		return MongoClients.create();
-	}
+    @Override
+    public MongoClient mongoClient() {
+        return MongoClients.create();
+    }
 
-	@Override
-	protected String getDatabaseName() {
-		return mongoProperties.getDatabase();
-	}
+    @Override
+    protected String getDatabaseName() {
+        return mongoProperties.getDatabase();
+    }
 }
